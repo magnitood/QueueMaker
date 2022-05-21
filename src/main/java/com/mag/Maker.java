@@ -12,7 +12,11 @@ public class Maker {
                 .add("pools",
                         Json.createArrayBuilder()
                                 .add(Json.createObjectBuilder()
-                                        .add("rolls", 1))
+                                        .add("rolls", 1)
+                                        .add("entries", Json.createArrayBuilder()
+                                                .add(ItemMaker.makeItem("obby", 1))
+                                        )
+                                )
                 ).build();
         System.out.println(model);
     }
