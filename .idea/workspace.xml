@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="150dc929-1d7b-4f41-a98c-6782bcf84063" name="Changes" comment="added working root structure">
+    <list default="true" id="150dc929-1d7b-4f41-a98c-6782bcf84063" name="Changes" comment="made item structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/ItemMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/ItemMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/ItemMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/JsonItemMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Maker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Maker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +45,7 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="com.mag.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mag.Main" />
       <module name="QueueMaker" />
       <extension name="coverage">
@@ -58,7 +60,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.com.mag.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -85,7 +87,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653101733853</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="made item structure">
+      <created>1653102934394</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1653102934394</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,6 +111,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initialise porject" />
     <MESSAGE value="added working root structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="added working root structure" />
+    <MESSAGE value="made item structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="made item structure" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
