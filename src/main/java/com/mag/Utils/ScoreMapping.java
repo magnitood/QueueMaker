@@ -9,6 +9,7 @@ public class ScoreMapping {
     //private int n;
     public Map<String, Integer> scores = new HashMap<String, Integer>();
 
+
     public ScoreMapping(int n) {
         scores.put("Times", n);
     }
