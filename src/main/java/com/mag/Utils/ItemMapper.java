@@ -10,7 +10,7 @@ import java.util.Map;
 public class ItemMapper {
    public String type = "minecraft:loot_table";
    public String name = "test:bartering/";
-   public ArrayList conditions= new ArrayList();
+   public ArrayList<Object> conditions= new ArrayList<Object>();
 
    public ItemMapper(String item, int times) throws JsonProcessingException {
        this.name+=item;
