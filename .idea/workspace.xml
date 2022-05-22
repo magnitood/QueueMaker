@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="150dc929-1d7b-4f41-a98c-6782bcf84063" name="Changes" comment="made item structure">
+    <list default="true" id="150dc929-1d7b-4f41-a98c-6782bcf84063" name="Changes" comment="reinitialising codebase">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/mag/Utils/ScoreMapping.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/ItemMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/JsonItemMaker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/JsonItemMaker.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Maker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mag/Maker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mag/Maker.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
