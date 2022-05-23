@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.ArrayList;
 
+//this class stitches secandory part of the root structure
 public class SecondaryMapper {
     public String rolls = "1";
     public ArrayList<Object> entries = new ArrayList<Object>();
@@ -11,6 +12,6 @@ public class SecondaryMapper {
         this.entries.add(new ItemMapper(name,times));
     }
     public void addLastItem(int times){
-
+        this.entries.add(new PrimaryFinalScoreMapper(times));
     }
 }
