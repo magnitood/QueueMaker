@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.mag.Main
+Class-Path: com.mag.Main.class
