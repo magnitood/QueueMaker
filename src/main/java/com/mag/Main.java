@@ -38,7 +38,7 @@ class Main{
                 case 1 -> {
                     ItemList_1_16_1[] item = ItemList_1_16_1.values();
                     for (int i = 0; i < item.length; i++) {
-                        System.out.println(i + 1 + ". " + item[i]);
+                        System.out.println(i + 1 + ". " + item[i].display_name);
                     }
                     System.out.println("Enter number corresponding of item you want");
                     int num = input.nextInt();
@@ -66,7 +66,7 @@ class Main{
                 case 1 -> {
                     ItemList_1_16_5[] item = ItemList_1_16_5.values();
                     for (int i = 0; i < item.length; i++) {
-                        System.out.println(i + 1 + ". " + item[i]);
+                        System.out.println(i + 1 + ". " + item[i].display_name);
                     }
                     System.out.println("Enter number corresponding of item you want");
                     int num = input.nextInt();
