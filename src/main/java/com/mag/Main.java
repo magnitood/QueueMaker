@@ -17,8 +17,6 @@ class Main{
     static Scanner input = new Scanner(System.in);
     static ObjectMapper mapper = new ObjectMapper();
     public static void main(String[] args) throws IOException{
-
-
         System.out.println("Pick Version");
         Main.printVersionMenu();
         switch (input.nextInt()) {

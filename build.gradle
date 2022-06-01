@@ -23,6 +23,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
     implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+    compileOnly 'junit:junit:4.13.2'
 }
 
 group = 'com.mag'
