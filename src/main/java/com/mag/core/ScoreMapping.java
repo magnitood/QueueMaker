@@ -1,4 +1,4 @@
-package com.mag.Utils;
+package com.mag.core;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,4 @@
-package com.mag.Utils;
-
-import java.util.ArrayList;
+package com.mag.core;
 
 public class SecondaryFinalScoreMapper {
     public String condition = "minecraft:entity_scores";

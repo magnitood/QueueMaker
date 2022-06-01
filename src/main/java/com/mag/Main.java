@@ -3,9 +3,9 @@ package com.mag;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mag.Utils.ItemList_1_16_1;
-import com.mag.Utils.ItemList_1_16_5;
-import com.mag.Utils.PrimaryMapper;
+import com.mag.core.ItemList_1_16_1;
+import com.mag.core.ItemList_1_16_5;
+import com.mag.core.PrimaryMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

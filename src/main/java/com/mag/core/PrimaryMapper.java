@@ -1,6 +1,4 @@
-package com.mag.Utils;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
+package com.mag.core;
 
 import java.util.ArrayList;
 //stitches final json structure to the root covering
@@ -9,7 +7,7 @@ public class PrimaryMapper {
     public String type = "minecraft:barter";
     public ArrayList<Object> pools = new ArrayList<Object>();
 
-    public PrimaryMapper(ArrayList<String> items) throws JsonProcessingException {
+    public PrimaryMapper(ArrayList<String> items){
         SecondaryMapper secondaryMapper = new SecondaryMapper();
         //idk how but it fucking works now lmao
         int i= 1;

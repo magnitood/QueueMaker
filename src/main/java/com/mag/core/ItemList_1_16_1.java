@@ -1,4 +1,4 @@
-package com.mag.Utils;
+package com.mag.core;
 
 public enum ItemList_1_16_1{
     ENDER_PEARL("ender_pearl", "Ender Pearl"),

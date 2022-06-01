@@ -1,6 +1,4 @@
-package com.mag.Utils;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
+package com.mag.core;
 
 import java.util.ArrayList;
 
@@ -8,7 +6,7 @@ import java.util.ArrayList;
 public class SecondaryMapper {
     public int rolls = 1;
     public ArrayList<Object> entries = new ArrayList<Object>();
-    public void addItems(String name, int times) throws JsonProcessingException {
+    public void addItems(String name, int times){
         this.entries.add(new ItemMapper(name,times));
     }
     public void addLastItem(int times){

@@ -1,7 +1,4 @@
-package com.mag.Utils;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-
+package com.mag.core;
 
 import java.util.ArrayList;
 
@@ -11,7 +8,7 @@ public class ItemMapper {
    public String name = "test:bartering/";
    public ArrayList<Object> conditions= new ArrayList<Object>();
 
-   public ItemMapper(String item, int times) throws JsonProcessingException {
+   public ItemMapper(String item, int times){
        this.name+=item;
        this.conditions.add(new ScoreMapping(times));
    }
