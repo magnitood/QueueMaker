@@ -40,6 +40,8 @@ class Main{
                 Main.item(ItemList_1_16_1.values());
             }
         }
+        System.out.println("piglin_bartering.json generated");
+        System.out.println("copy the file to Bartering Queue/data/minecraft/loot_tables/gameplay/piglin_bartering.json");
     }
     public static void item(ItemList_1_16_1[] item) throws IOException {
         for (int i = 0; i < item.length; i++) {
