@@ -27,9 +27,9 @@ dependencies {
 }
 
 group = 'com.mag'
-version = '1.1.0'
+version = '1.1.1'
 description = 'Queue-Maker'
-java.sourceCompatibility = JavaVersion.VERSION_18
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 jar {
     manifest {
