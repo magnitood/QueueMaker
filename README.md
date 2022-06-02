@@ -8,5 +8,5 @@ Make piglin_bartering.json for my BarteringQueue datapack
 3. Make sure you have java 17
 
 ```console
-java -jar Queue-Maker-1.1.0.jar
+java -jar Queue-Maker-1.1.1.jar
 ```
