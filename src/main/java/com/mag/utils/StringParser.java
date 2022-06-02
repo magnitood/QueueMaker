@@ -5,14 +5,16 @@ import java.util.ArrayList;
 public class StringParser {
     private ArrayList<Integer> index = new ArrayList<>();
     private ArrayList<Integer> count = new ArrayList<>();
+    private String[] group;
 
     public StringParser(String text) {
         text = text.trim();
         String[] group=text.split("\\s");
-        for(int i=0;i<group.length;i++){
-            index.add(parseStringtoIndex(group[i]));
-            count.add(parseStringtoCount(group[i]));
+        for (String s : group) {
+            index.add(parseStringtoIndex(s));
+            count.add(parseStringtoCount(s));
         }
+        this.group=group;
     }
 
     public int getIndex(int i) {
@@ -20,6 +22,9 @@ public class StringParser {
     }
     public int getCount(int i){
         return count.get(i);
+    }
+    public int getTotalItemCount(){
+        return this.group.length;
     }
 
     private int parseStringtoIndex(String s) {
