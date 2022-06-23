@@ -3,8 +3,7 @@ package com.mag;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mag.core.ItemList_1_16_1;
-import com.mag.core.ItemList_1_16_5;
+import com.mag.core.ItemList;
 import com.mag.core.PrimaryMapper;
 import com.mag.utils.StringParser;
 
@@ -12,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class Main{
@@ -32,17 +32,18 @@ class Main{
             }
         }
         switch(choice) {
-            case 1 -> Main.item(ItemList_1_16_1.values());
-            case 2 -> Main.item(ItemList_1_16_5.values());
+            case 1 -> Main.item(ItemList.values(),"1.16.1");
+            case 2 -> Main.item(ItemList.values(), "1.16.5");
             default -> {
                 System.out.println("Invalid Number, using default");
-                Main.item(ItemList_1_16_1.values());
+                Main.item(ItemList.values(),"1.16.1");
             }
         }
         System.out.println("piglin_bartering.json generated");
         System.out.println("copy the file to Bartering Queue/data/minecraft/loot_tables/gameplay/piglin_bartering.json");
     }
-    public static void item(ItemList_1_16_1[] item) throws IOException {
+    public static void item(ItemList[] item, String version) throws IOException {
+        item = Main.convertItemListArraytoSpecificVersion(item,version);
         for (int i = 0; i < item.length; i++) {
             System.out.println(i + 1 + ". " + item[i].display_name);
         }
@@ -74,41 +75,18 @@ class Main{
             }
         }
     }
-    public static void item(ItemList_1_16_5[] item) throws IOException {
-        for (int i = 0; i < item.length; i++) {
-            System.out.println(i + 1 + ". " + item[i].display_name);
-        }
-        System.out.println("Add items with the shown number with the format <item_number>*<count>");
-        System.out.println("Put space between each item");
-        System.out.println("For example, if you want 10 obsidian trades, 4 ender pearl trades and 3 string trades, you would type:");
-        System.out.println("10*10 1*4 2*3");
-        System.out.println("Enter items");
-        while (true) {
-            try {
-                parser = new StringParser(bufferedReader.readLine());
-                break;
-            } catch (Exception e) {
-                System.out.println("Improper Format, try again");
-            }
-        }
-        while (true) {
-            try {
-                for (int i = 0; i < parser.getTotalItemCount(); i++) {
-                    for (int j = 0; j < parser.getCount(i); j++) {
-                        itemstojsonlist.add(item[parser.getIndex(i) - 1].string);
-                    }
-                }
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid input! Try again");
-                parser = new StringParser(bufferedReader.readLine());
-            }
-        }
-    }
     public static void printVersionMenu() {
         System.out.println("1. 1.16.1");
         System.out.println("2. 1.16.5+");
         System.out.println("Default: 1.16.1");
+    }
+    public static ItemList[] convertItemListArraytoSpecificVersion(ItemList item[], String version){
+        ArrayList<ItemList> arraylist = new ArrayList<ItemList>();
+        for(int i=0;i<ItemList.values().length;i++){
+            if (ItemList.values()[i].version.equals("Both") || ItemList.values()[i].version.equals(version)){
+                arraylist.add(ItemList.values()[i]);
+            }
+        }
+        return arraylist.toArray(new ItemList[arraylist.size()]); //converts the arraylist and returns it in form of array
     }
 }
