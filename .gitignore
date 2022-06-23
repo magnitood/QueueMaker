@@ -38,9 +38,9 @@ build/
 .DS_Store
 
 ### Custom ###
-build
-gradle
+build/*
+gradle/*
 piglin_bartering.json
-.idea
-.gradle
-target
+.idea/*
+.gradle/*
+target/*
