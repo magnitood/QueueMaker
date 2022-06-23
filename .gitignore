@@ -11,15 +11,15 @@ target/
 *.iws
 *.iml
 *.ipr
+.apt_generated
 
 ### Eclipse ###
-.apt_generated
+.sts4-cache
 .classpath
 .factorypath
 .project
 .settings
 .springBeans
-.sts4-cache
 
 ### NetBeans ###
 /nbproject/private/
@@ -36,3 +36,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Custom ###
+build
+gradle
+piglin_bartering.json
+.idea
+.gradle
+target
