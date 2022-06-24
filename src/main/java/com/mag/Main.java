@@ -5,13 +5,13 @@ package com.mag;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mag.core.ItemList;
 import com.mag.core.PrimaryMapper;
+import com.mag.utils.PackGenerator;
 import com.mag.utils.StringParser;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class Main{
@@ -39,8 +39,7 @@ class Main{
                 Main.item(ItemList.values(),"1.16.1");
             }
         }
-        System.out.println("piglin_bartering.json generated");
-        System.out.println("copy the file to Bartering Queue/data/minecraft/loot_tables/gameplay/piglin_bartering.json");
+        System.out.println("Datapack Generator, you are now Dream");
     }
     public static void item(ItemList[] item, String version) throws IOException {
         item = Main.convertItemListArraytoSpecificVersion(item,version);
@@ -67,7 +66,8 @@ class Main{
                         itemstojsonlist.add(item[parser.getIndex(i) - 1].string);
                     }
                 }
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
+                PackGenerator.generatePack("Bartering Queue "+version, version);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("Bartering Queue "+version+"/data/minecraft/loot_tables/gameplay/piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid input! Try again");
@@ -80,8 +80,8 @@ class Main{
         System.out.println("2. 1.16.5+");
         System.out.println("Default: 1.16.1");
     }
-    public static ItemList[] convertItemListArraytoSpecificVersion(ItemList item[], String version){
-        ArrayList<ItemList> arraylist = new ArrayList<ItemList>();
+    public static ItemList[] convertItemListArraytoSpecificVersion(ItemList[] item, String version){
+        ArrayList<ItemList> arraylist = new ArrayList<>();
         for(int i=0;i<ItemList.values().length;i++){
             if (ItemList.values()[i].version.equals("Both") || ItemList.values()[i].version.equals(version)){
                 arraylist.add(ItemList.values()[i]);
