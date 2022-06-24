@@ -49,7 +49,12 @@ class Main{
         System.out.println("Add items with the shown number with the format <item_number>*<count>");
         System.out.println("Put space between each item");
         System.out.println("For example, if you want 10 obsidian trades, 4 ender pearl trades and 3 string trades, you would type:");
-        System.out.println("12*10 1*4 2*3");
+        if(version.equals("1.16.1")){
+            System.out.println("12*10 1*4 2*3");
+        }
+        else{
+            System.out.println("10*10 1*4 2*3");
+        }
         System.out.println("Enter items");
         while (true) {
             try {
