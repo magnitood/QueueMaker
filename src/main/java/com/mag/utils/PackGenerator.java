@@ -1,31 +1,43 @@
 package com.mag.utils;
 
+
+
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.jar.JarFile;
 
-public abstract class PackGenerator {//class for generaating copying datapack from resource folder to outside location for the different versions
-//can't be instantiated
-
-    /*example use
-            PackGenerator.generatePack("/home/mag", "1.16.1");*/
-    public static void generatePack(String filepath,String version) throws URISyntaxException, IOException {//copies datapack folder from resource location to a provided path
-        FileUtils.copyDirectory(getFilefromResource(version), new File(filepath));
-    }
-    private static File getFilefromResource(String version) throws URISyntaxException {//converts resource location to file
-        String url_1161 = "Bartering Queue 1.16.1";
-        String url_1165 = "Bartering Queue 1.16.5";
-        String name = (version.equals("1.16.5")) ? url_1165 : url_1161;
-        URL resource = PackGenerator.class.getClassLoader().getResource(name);
-        File srcPack;
-        if (resource != null) {
-            srcPack = new File(resource.toURI());
-        } else {
-            throw new RuntimeException();
+/**
+ * generates datapack for given version (internal work: copies directory from resource folder to a local destination)
+ */
+public abstract class PackGenerator {
+    /**
+     *
+     * @param filename name of the directory in String where the pack is to be copied
+     * @param version version of the pack, valid values: "1.16.1, 1.16.5"
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public static void generatePack(String filename, String version) throws IOException, URISyntaxException {
+        URL resourceUrl = PackGenerator.class.getClassLoader().getResource("Bartering Queue "+version);
+        System.out.println(resourceUrl);
+        if(resourceUrl.toString().startsWith("jar")){
+            ResourceCopy resourceCopy = new ResourceCopy();
+            String thisrunningjarloation = PackGenerator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            System.out.println(thisrunningjarloation);
+            JarFile thisjar = new JarFile(thisrunningjarloation);
+            System.out.println(thisjar);
+            File destPack = new File(filename);
+            destPack.mkdir();
+            resourceCopy.copyResourceDirectory(thisjar, "Bartering Queue "+version, destPack);
+            System.out.println("hopefully file is made");
         }
-        return srcPack;
+        else{
+            File srcPack = new File(resourceUrl.toURI());
+            FileUtils.copyDirectoryToDirectory(srcPack, new File(filename));
+            System.out.println("directory copied");
+        }
     }
 }
