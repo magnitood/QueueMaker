@@ -1,5 +1,5 @@
 # QueueMaker
-Generate datapack for specific Bartering Queue
+Generates a datapack that will make piglins barter specific queue of items
 
 ## Usage
 
