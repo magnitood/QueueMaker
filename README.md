@@ -1,5 +1,5 @@
 # QueueMaker
-Make piglin_bartering.json for my BarteringQueue datapack
+Generate datapack for specific Bartering Queue
 
 ## Usage
 
@@ -8,5 +8,8 @@ Make piglin_bartering.json for my BarteringQueue datapack
 3. Make sure you have java 17
 
 ```console
-java -jar Queue-Maker-1.2.0.jar
+java -jar Queue-Maker-1.3.0.jar
 ```
+## Demo
+
+[![asciicast](https://asciinema.org/a/f8r2zCjlm2znswU2ucXeUwmmK.svg)](https://asciinema.org/a/f8r2zCjlm2znswU2ucXeUwmmK)
