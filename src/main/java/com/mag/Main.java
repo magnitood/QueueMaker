@@ -14,12 +14,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-class Main{
+public class Main{
     static ArrayList<String> itemstojsonlist = new ArrayList<>();
     static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
     static ObjectMapper mapper = new ObjectMapper();
     static StringParser parser;
+    public static  boolean isDebugEnabled = false;
     public static void main(String[] args) throws IOException{
+        try {
+            isDebugEnabled = args[0].equals("--debug");
+            System.out.println("Running in Debug Mode, errors will be printed");
+        }
+        catch (Exception ignored){}
         System.out.println("Pick Version");
         int choice;
         while(true) {
@@ -29,6 +35,7 @@ class Main{
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input, try again");
+                if(Main.isDebugEnabled) e.printStackTrace();
             }
         }
         switch(choice) {
@@ -39,7 +46,7 @@ class Main{
                 Main.item(ItemList.values(),"1.16.1");
             }
         }
-        System.out.println("Datapack Generator, you are now Dream");
+        System.out.println("Datapack Generated, you are now Dream");
     }
     public static void item(ItemList[] item, String version) throws IOException {
         item = Main.convertItemListArraytoSpecificVersion(item,version);
@@ -62,6 +69,7 @@ class Main{
                 break;
             } catch (Exception e) {
                 System.out.println("Improper Format, try again");
+                if(Main.isDebugEnabled) e.printStackTrace();
             }
         }
         while (true) {
@@ -76,6 +84,7 @@ class Main{
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid input! Try again");
+                if(Main.isDebugEnabled) e.printStackTrace();
                 parser = new StringParser(bufferedReader.readLine());
             }
         }

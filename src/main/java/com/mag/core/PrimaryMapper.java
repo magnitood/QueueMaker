@@ -1,5 +1,7 @@
 package com.mag.core;
 
+import com.mag.Main;
+
 import java.util.ArrayList;
 //stitches final json structure to the root covering
 public class PrimaryMapper {
@@ -7,6 +9,10 @@ public class PrimaryMapper {
     public String type = "minecraft:barter";
     public ArrayList<Object> pools = new ArrayList<Object>();
 
+    /**
+     * Takes in a list of Strings which are actually items
+     * @param items the items that will go into the json
+     */
     public PrimaryMapper(ArrayList<String> items){
         SecondaryMapper secondaryMapper = new SecondaryMapper();
         //idk how but it fucking works now lmao
@@ -19,7 +25,7 @@ public class PrimaryMapper {
             secondaryMapper.addLastItem(i);
             this.pools.add(secondaryMapper);
         } catch (NullPointerException e){
-            e.printStackTrace();
+            if(Main.isDebugEnabled) e.printStackTrace();
         }
     }
 }
