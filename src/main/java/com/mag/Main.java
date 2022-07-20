@@ -47,6 +47,7 @@ public class Main{
             }
         }
         System.out.println("Datapack Generated, you are now Dream");
+        bufferedReader.close();
     }
     public static void item(ItemList[] item, String version) throws IOException {
         item = Main.convertItemListArraytoSpecificVersion(item,version);
