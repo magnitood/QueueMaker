@@ -15,7 +15,7 @@ import java.util.jar.JarFile;
  * A helper to copy resources from a JAR file into a directory.
  * I stole this from StackOverflow <a href="https://stackoverflow.com/questions/1386809/copy-directory-from-a-jar-file">...</a>
  */
-public final class ResourceCopy {
+public final class ResourceHelper {
 
     /**
      * URI prefix for JAR files.
@@ -36,7 +36,7 @@ public final class ResourceCopy {
      * @return The temporal directory
      * @throws IOException If there is an I/O error
      */
-    public File copyResourcesToTempDir(final boolean preserve,
+    public static File copyResourcesToTempDir(final boolean preserve,
                                        final String... paths)
             throws IOException {
         final File parent = new File(System.getProperty("java.io.tmpdir"));
@@ -44,7 +44,7 @@ public final class ResourceCopy {
         do {
             directory = new File(parent, String.valueOf(System.nanoTime()));
         } while (!directory.mkdir());
-        return this.copyResourcesToDir(directory, preserve, paths);
+        return ResourceHelper.copyResourcesToDir(directory, preserve, paths);
     }
 
     /**
@@ -57,7 +57,7 @@ public final class ResourceCopy {
      * @return The temporal directory
      * @throws IOException If there is an I/O error
      */
-    public File copyResourcesToDir(final File directory, final boolean preserve,
+    public static File copyResourcesToDir(final File directory, final boolean preserve,
                                    final String... paths) throws IOException {
         for (final String path : paths) {
             final File target;
@@ -67,7 +67,7 @@ public final class ResourceCopy {
             } else {
                 target = new File(directory, new File(path).getName());
             }
-            this.writeToFile(
+            ResourceHelper.writeToFile(
                     Thread.currentThread()
                             .getContextClassLoader()
                             .getResourceAsStream(path),
@@ -84,7 +84,7 @@ public final class ResourceCopy {
      * @param target The target directory
      * @throws IOException If there is an I/O error
      */
-    public void copyResourceDirectory(final JarFile source, final String path,
+    public static void copyResourceDirectory(final JarFile source, final String path,
                                       final File target) throws IOException {
         final Enumeration<JarEntry> entries = source.entries();
         final String newpath = String.format("%s/", path);
@@ -97,7 +97,7 @@ public final class ResourceCopy {
                 if (parent != null) {
                     parent.mkdirs();
                 }
-                this.writeToFile(source.getInputStream(entry), dest);
+                ResourceHelper.writeToFile(source.getInputStream(entry), dest);
             }
         }
     }
@@ -108,7 +108,7 @@ public final class ResourceCopy {
      * @return The JAR file or null
      * @throws IOException If there is an I/O error
      */
-    public Optional<JarFile> jar(final Class<?> clazz) throws IOException {
+    public static Optional<JarFile> jar(final Class<?> clazz) throws IOException {
         final String path =
                 String.format("/%s.class", clazz.getName().replace('.', '/'));
         final URL url = clazz.getResource(path);
@@ -116,10 +116,10 @@ public final class ResourceCopy {
         if (url != null) {
             final String jar = url.toString();
             final int bang = jar.indexOf('!');
-            if (jar.startsWith(ResourceCopy.JAR_URI_PREFIX) && bang != -1) {
+            if (jar.startsWith(ResourceHelper.JAR_URI_PREFIX) && bang != -1) {
                 optional = Optional.of(
                         new JarFile(
-                                jar.substring(ResourceCopy.JAR_URI_PREFIX.length(), bang)
+                                jar.substring(ResourceHelper.JAR_URI_PREFIX.length(), bang)
                         )
                 );
             }
@@ -133,10 +133,10 @@ public final class ResourceCopy {
      * @param target The target file
      * @throws IOException If there is an I/O error
      */
-    private void writeToFile(final InputStream input, final File target)
+    private static void writeToFile(final InputStream input, final File target)
             throws IOException {
         final OutputStream output = Files.newOutputStream(target.toPath());
-        final byte[] buffer = new byte[ResourceCopy.BUFFER_SIZE];
+        final byte[] buffer = new byte[ResourceHelper.BUFFER_SIZE];
         int length = input.read(buffer);
         while (length > 0) {
             output.write(buffer, 0, length);

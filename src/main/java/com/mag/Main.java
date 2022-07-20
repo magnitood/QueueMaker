@@ -79,8 +79,10 @@ public class Main{
                         itemstojsonlist.add(item[parser.getIndex(i) - 1].string);
                     }
                 }
-                PackGenerator.generatePack("Bartering Queue "+version, version);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("Bartering Queue "+version+"/data/minecraft/loot_tables/gameplay/piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
+                File packDestinationFolder = new File("Bartering Queue "+version);
+                packDestinationFolder.mkdir();
+                PackGenerator.generatePack(packDestinationFolder, version);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(packDestinationFolder.getName()+"/data/minecraft/loot_tables/gameplay/piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
                 break;
             } catch (Exception e) {
                 System.out.println("Invalid input! Try again");
