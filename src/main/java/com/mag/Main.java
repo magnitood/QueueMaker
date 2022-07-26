@@ -1,109 +1,85 @@
 package com.mag;
 
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mag.core.ItemList;
-import com.mag.core.PrimaryMapper;
+import com.mag.core.*;
 import com.mag.utils.PackGenerator;
 import com.mag.utils.StringParser;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-
 public class Main{
-    static ArrayList<String> itemstojsonlist = new ArrayList<>();
-    static BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-    static ObjectMapper mapper = new ObjectMapper();
-    static StringParser parser;
-    public static  boolean isDebugEnabled = false;
-    public static void main(String[] args) throws IOException{
-        try {
-            isDebugEnabled = args[0].equals("--debug");
-            System.out.println("Running in Debug Mode, errors will be printed");
-        }
-        catch (Exception ignored){}
-        System.out.println("Pick Version");
-        int choice;
-        while(true) {
-            try {
-                Main.printVersionMenu();
-                choice = Integer.parseInt(bufferedReader.readLine());
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input, try again");
-                if(Main.isDebugEnabled) e.printStackTrace();
-            }
-        }
-        switch(choice) {
-            case 1 -> Main.item(ItemList.values(),"1.16.1");
-            case 2 -> Main.item(ItemList.values(), "1.16.5");
-            default -> {
-                System.out.println("Invalid Number, using default");
-                Main.item(ItemList.values(),"1.16.1");
-            }
-        }
-        System.out.println("Datapack Generated, you are now Dream");
-        bufferedReader.close();
+    private static BarteringItems[] barteringItemsArray;
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private static Version version;
+    private static final PiglinBarteringJsonGenerator piglinBarteringJsonGenerator = new PiglinBarteringJsonGenerator();
+    public static void main(String[] args) throws IOException, InterruptedException, URISyntaxException {
+        setVersionFromUser();
+        makeBarteringItemArray();
+        displayOptions();
+        parseString();
+        copyDataPack();
+        generateFinalJson();
     }
-    public static void item(ItemList[] item, String version) throws IOException {
-        item = Main.convertItemListArraytoSpecificVersion(item,version);
-        for (int i = 0; i < item.length; i++) {
-            System.out.println(i + 1 + ". " + item[i].display_name);
+    public static void makeBarteringItemArray(){
+        ArrayList<BarteringItems> barteringItemsArrayList = new ArrayList<>();
+        for(int i = 0; i< BarteringItems.values().length; i++){
+            if (BarteringItems.values()[i].version.equals(Version.BOTH) || (BarteringItems.values()[i].version.equals(version))){
+                barteringItemsArrayList.add(BarteringItems.values()[i]);
+            }
+        }
+        Main.barteringItemsArray = barteringItemsArrayList.toArray(new BarteringItems[barteringItemsArrayList.size()]);
+    }
+    public static void displayOptions(){
+        for (int i =0;i<barteringItemsArray.length;i++){
+            System.out.println(i+1+": "+barteringItemsArray[i].display_name);
         }
         System.out.println("Add items with the shown number with the format <item_number>*<count>");
         System.out.println("Put space between each item");
         System.out.println("For example, if you want 10 obsidian trades, 4 ender pearl trades and 3 string trades, you would type:");
-        if(version.equals("1.16.1")){
-            System.out.println("12*10 1*4 2*3");
-        }
-        else{
-            System.out.println("10*10 1*4 2*3");
-        }
-        System.out.println("Enter items");
-        while (true) {
-            try {
-                parser = new StringParser(bufferedReader.readLine());
-                break;
-            } catch (Exception e) {
-                System.out.println("Improper Format, try again");
-                if(Main.isDebugEnabled) e.printStackTrace();
-            }
-        }
-        while (true) {
-            try {
-                for (int i = 0; i < parser.getTotalItemCount(); i++) {
-                    for (int j = 0; j < parser.getCount(i); j++) {
-                        itemstojsonlist.add(item[parser.getIndex(i) - 1].string);
-                    }
-                }
-                File packDestinationFolder = new File("Bartering Queue "+version);
-                packDestinationFolder.mkdir();
-                PackGenerator.generatePack(packDestinationFolder, version);
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File(packDestinationFolder.getName()+"/data/minecraft/loot_tables/gameplay/piglin_bartering.json"), new PrimaryMapper(itemstojsonlist));
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid input! Try again");
-                if(Main.isDebugEnabled) e.printStackTrace();
-                parser = new StringParser(bufferedReader.readLine());
-            }
-        }
     }
-    public static void printVersionMenu() {
-        System.out.println("1. 1.16.1");
-        System.out.println("2. 1.16.5+");
+    public static void setVersionFromUser() throws IOException, InterruptedException {
+        System.out.println("1: 1.16.1");
+        System.out.println("2: 1.16.5");
         System.out.println("Default: 1.16.1");
-    }
-    public static ItemList[] convertItemListArraytoSpecificVersion(ItemList[] item, String version){
-        ArrayList<ItemList> arraylist = new ArrayList<>();
-        for(int i=0;i<ItemList.values().length;i++){
-            if (ItemList.values()[i].version.equals("Both") || ItemList.values()[i].version.equals(version)){
-                arraylist.add(ItemList.values()[i]);
+        System.out.println("Enter choice");
+        try {
+            int choice = Integer.parseInt(br.readLine());
+            if (choice == 2) {
+                version = Version.VERSION_1165;
+            } else if (choice == 1) {
+                version = Version.VERSION_1161;
+            } else {
+                System.out.println("Incorrect Option, try again");
+                Thread.sleep(1000);
+                setVersionFromUser();
             }
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect Option, try again");
+            Thread.sleep(1000);
+            setVersionFromUser();
         }
-        return arraylist.toArray(new ItemList[arraylist.size()]); //converts the arraylist and returns it in form of array
     }
+    public static void parseString(){
+        try {
+            StringParser stringParser = new StringParser(br.readLine());
+            for(int i=0;i<stringParser.getTotalItemCount();i++){
+                piglinBarteringJsonGenerator.addBarteringItemStack(new BarteringItemStack(barteringItemsArray[stringParser.getIndex(i)-1] , stringParser.getCount(i)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("An error occurred, pls try again");
+            parseString();
+        }
+    }
+    public static void copyDataPack() throws IOException, URISyntaxException {
+        File datapackFolder = new File("Bartering Queue "+version.version_string);
+        datapackFolder.mkdir();
+        PackGenerator.generatePack(datapackFolder, version);
+    }
+    public static void generateFinalJson() throws IOException {
+        File folder = new File("Bartering Queue "+version.version_string+"/data/minecraft/loot_tables/gameplay/piglin_bartering.json");
+        piglinBarteringJsonGenerator.generatePiglinBarteringDotJson(folder);}
 }
