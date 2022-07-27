@@ -8,7 +8,7 @@ Generates a datapack that will make piglins barter specific queue of items
 3. Make sure you have java 17
 
 ```console
-java -jar Queue-Maker-1.3.0.jar
+java -jar Queue-Maker-1.3.1.jar
 ```
 ## Demo
 
