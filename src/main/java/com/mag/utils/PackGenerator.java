@@ -2,35 +2,47 @@ package com.mag.utils;
 
 
 
+import com.mag.core.Version;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
+import java.util.Optional;
 import java.util.jar.JarFile;
 
 /**
  * generates datapack for given version (internal work: copies directory from resource folder to a local destination)
  */
 public abstract class PackGenerator {
+
+    private static final String DATAPACK_FOLDER_NAME_IN_JAR="Bartering Queue ";
     /**
      * Copies the Datapack from the Resource folder to local location, uses different code for IDE and Jars
-     * @param filename name of the directory in String where the pack is to be copied
+     * @param packDestinationFolder Folder name of the directory in String where the pack is to be copied
      * @param version version of the pack, valid values: "1.16.1, 1.16.5"
      */
-    public static void generatePack(String filename, String version) throws IOException, URISyntaxException {
-        URL resourceUrl = PackGenerator.class.getClassLoader().getResource("Bartering Queue "+version);
-        if(resourceUrl.toString().startsWith("jar")){
-            ResourceCopy resourceCopy = new ResourceCopy();
-            String thisrunningjarloation = PackGenerator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
-            JarFile thisjar = new JarFile(thisrunningjarloation);
-            File destPack = new File(filename);
-            destPack.mkdir();
-            resourceCopy.copyResourceDirectory(thisjar, "Bartering Queue "+version, destPack);
+    public static void generatePack(File packDestinationFolder, Version version) throws IOException, URISyntaxException {
+        if (!packDestinationFolder.isDirectory()) {
+            throw new IllegalArgumentException("Given file is not a folder");
         }
-        else{
-            File srcPack = new File(resourceUrl.toURI());
-            FileUtils.copyDirectory(srcPack, new File(filename));
+        Optional<JarFile> thisJar = ResourceHelper.jar(PackGenerator.class);
+        if (thisJar.isEmpty()) {
+            File packSourceFolder = new File(PackGenerator.class.getClassLoader().getResource(DATAPACK_FOLDER_NAME_IN_JAR + version.version_string).toURI());
+            FileUtils.copyDirectory(packSourceFolder, packDestinationFolder);
+        } else {
+            ResourceHelper.copyResourceDirectory(thisJar.get(), DATAPACK_FOLDER_NAME_IN_JAR + version.version_string, packDestinationFolder);
         }
+//        if(resourceUrl.toString().startsWith("jar")){
+//            ResourceCopy resourceCopy = new ResourceCopy();
+//            String thisrunningjarloation = PackGenerator.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+//            Optional<JarFile> thisjar = resourceCopy.jar(PackGenerator.class);
+//            File destPack = new File(filename);
+//            destPack.mkdir();
+//            resourceCopy.copyResourceDirectory(thisjar, "Bartering Queue "+version, destPack);
+//        }
+//        else{
+//            File srcPack = new File(resourceUrl.toURI());
+//            FileUtils.copyDirectory(srcPack, new File(filename));
+//        }
     }
 }

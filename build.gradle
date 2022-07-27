@@ -22,12 +22,14 @@ repositories {
 dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+    compileOnly 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
     implementation 'commons-io:commons-io:2.11.0'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
 }
 
 group = 'com.mag'
-version = '1.3.0'
+version = '1.3.1'
 description = 'Queue-Maker'
 java.sourceCompatibility = JavaVersion.VERSION_17
 
