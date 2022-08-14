@@ -1,3 +1,5 @@
+# Archived: this repo is archived and no longer maintained, use [this mod](https://github.com/MaG-NITud3/BarteringManip) instead
+
 # QueueMaker
 Generates a datapack that will make piglins barter specific queue of items
 
